@@ -1,0 +1,17 @@
+{
+  "name": "caesar-cipher",
+  "version": "1.0.0",
+  "description": "A little implementation of Caesar Cipher",
+  "main": "index.js",
+  "repository": "https://github.com/finhaa/caesar-cipher.git",
+  "author": "Rafael Farias Lima <finha.farias@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "2.4.2",
+    "cli-table": "0.3.1",
+    "commander": "2.19.0",
+    "figlet": "1.2.1",
+    "inquirer": "6.2.2",
+    "shelljs": "0.8.3"
+  }
+}
