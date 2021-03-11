@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 
 const crypter = require('./crypter');
 const packageJson = require('./package.json');
@@ -34,10 +35,10 @@ program
     }
 
     console.log(
-      crypter.encrypt(
+      chalk`{green Here's your encrypted message:} {yellow ${crypter.encrypt(
         text || answers.text,
         parseInt(offset || answers.offset, 10),
-      ),
+      )}}`,
     );
   });
 
@@ -69,10 +70,10 @@ program
     }
 
     console.log(
-      crypter.decrypt(
+      chalk`{green Here's your decrypted message:} {yellow ${crypter.decrypt(
         text || answers.text,
         parseInt(offset || answers.offset, 10),
-      ),
+      )}}`,
     );
   });
 
