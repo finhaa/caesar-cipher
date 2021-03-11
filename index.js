@@ -3,64 +3,14 @@
 const program = require('commander');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const fs = require('fs');
-const { join } = require('path');
-const _ = require('lodash');
-const Table = require('cli-table');
 
 const crypter = require('./crypter');
+const {
+  getJson,
+  saveHistoric,
+  showHistoricTable,
+} = require('./data-persistence');
 const packageJson = require('./package.json');
-
-const historicPath = join(__dirname, 'historic.json');
-
-const getJson = path => {
-  const data = fs.existsSync(path) ? fs.readFileSync(path) : [];
-
-  try {
-    return JSON.parse(data);
-  } catch (e) {
-    return [];
-  }
-};
-
-const saveJson = (path, data) =>
-  fs.writeFileSync(path, JSON.stringify(data, null, '\t'));
-
-const saveHistoric = (rotation, decryptedMessage, encryptedMessage) => {
-  const historicJson = getJson(historicPath);
-  let shouldSave = true;
-
-  const newObj = {
-    rotation,
-    decryptedMessage,
-    encryptedMessage,
-  };
-
-  historicJson.forEach(obj => {
-    if (_.isEqual(obj, newObj)) {
-      shouldSave = false;
-    }
-  });
-
-  if (shouldSave) {
-    historicJson.push(newObj);
-  }
-
-  saveJson(historicPath, historicJson);
-};
-
-const showHistoricTable = data => {
-  const table = new Table({
-    head: ['rotation', 'decrypted message', 'encrypted message'],
-    colWidths: [10, 30, 30],
-  });
-
-  data.map(obj =>
-    table.push([obj.rotation, obj.decryptedMessage, obj.encryptedMessage]),
-  );
-
-  console.log(table.toString());
-};
 
 program.version(packageJson.version);
 
@@ -150,7 +100,8 @@ program
   .command('historic')
   .description('List a historic of messages')
   .action(() => {
-    const data = getJson(historicPath);
+    const data = getJson();
+
     showHistoricTable(data);
   });
 
