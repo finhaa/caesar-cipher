@@ -28,8 +28,6 @@ const saveHistoric = (rotation, decryptedMessage, encryptedMessage) => {
     encryptedMessage,
   };
 
-  console.log(newObj);
-
   historicJson.forEach(obj => {
     if (_.isEqual(obj, newObj)) {
       shouldSave = false;

@@ -3,6 +3,7 @@
 const program = require('commander');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
+const figlet = require('figlet');
 
 const crypter = require('./crypter');
 const {
@@ -13,6 +14,8 @@ const {
 const packageJson = require('./package.json');
 
 program.version(packageJson.version);
+
+console.log(chalk.blue(figlet.textSync('Caesar Cipher CLI')));
 
 program
   .command('encrypt [text] [offset]')
